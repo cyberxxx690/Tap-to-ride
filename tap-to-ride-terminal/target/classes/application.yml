@@ -1,0 +1,36 @@
+# We run on a custom port to avoid clashing with the settlement server running locally
+server:
+  port: 8081
+
+spring:
+  datasource:
+    # Use SQLite for reliable, file-based local storage that persists across reboots
+    url: jdbc:sqlite:terminal.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    # Use community dialects so Hibernate can speak natively to SQLite
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      # Automatically set up the schema on boot
+
+      ddl-auto: update
+    # Print SQL statements for easy debugging during development
+    show-sql: true
+
+
+app:
+  # The shared secret used to mathematically sign transactions before they leave the vehicle
+  hmac:
+    secret: TraderootSecret123
+  # Where we push the data when the queue attempts a delivery
+  server:
+    url: http://localhost:8080
+
+  # A unique identifier for this specific hardware unit
+  terminal:
+    id: TERMINAL_01
+
+
+
+
+  

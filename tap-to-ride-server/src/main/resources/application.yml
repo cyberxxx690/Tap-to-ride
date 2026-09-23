@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    # Use SQLite for persistence to make it easy to run and test locally
+    url: jdbc:sqlite:settlement.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    # Tell Hibernate we are talking to a SQLite database
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      # Automatically update the database schema to match our entity classes
+      ddl-auto: update
+    # Log the generated SQL queries to help us debug
+    show-sql: true
+
+app:
+  hmac:
+    # The shared secret used to verify incoming payloads. Must be identical on the terminal.
+    secret: TraderootSecret123
