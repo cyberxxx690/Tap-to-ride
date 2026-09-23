@@ -9,12 +9,12 @@ This project was built to solve a specific engineering problem: processing digit
 The system is split into two independent Spring Boot microservices that communicate via a background syncing queue.
 
 ### 1. The Terminal (tap-to-ride-terminal)
-- **Role:** Runs on a tablet mounted near the driver (Port 8081).
+- **Role:** Acts as the mobile Point-of-Sale (mPOS) edge device operating inside the vehicle.
 - **Core Feature:** Operates entirely offline-first. 
 - **How it works:** When a passenger taps their card, the fare is cryptographically signed and saved instantly to a local SQLite database. A background worker (QueueService) constantly monitors the queue and pushes batches of these fares to the Headquarters Server whenever a network connection is available.
 
 ### 2. The Headquarters Server (tap-to-ride-server)
-- **Role:** Runs in the central transit office (Port 8080).
+- **Role:** Acts as the centralized backend system for fraud detection and financial aggregation.
 - **Core Feature:** Centralized fraud detection and settlement aggregation.
 - **How it works:** Receives synced batches from terminals, verifies cryptographic signatures to detect any hacked fares, ensures idempotent processing to prevent double-charging, and aggregates individual taps into grouped, daily bank charges to save on credit card processing fees.
 
