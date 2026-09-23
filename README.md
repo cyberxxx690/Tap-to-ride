@@ -1,6 +1,6 @@
 # Tap-to-Ride Transit System
 
-A proof-of-concept payment and settlement system built for transit vehicles (like minibuses or taxis). 
+**Developed as part of my software engineering internship**, this project is a proof-of-concept payment and settlement system built for transit vehicles (like minibuses or taxis). 
 
 This project was built to solve a specific engineering problem: processing digital payments in environments with highly unreliable internet connectivity (like driving through a tunnel or a rural area), while ensuring zero data loss and preventing local database tampering.
 
