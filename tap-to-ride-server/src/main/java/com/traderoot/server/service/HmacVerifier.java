@@ -25,19 +25,24 @@ public class HmacVerifier {
         // 4. Return true if they match, false otherwise
 
 
+        // We must format the amount exactly as the terminal did (2 decimal places)
+        // If the terminal sent "12.00", we must hash "12.00", not "12" or "12.0".
         String normalizedAmount = amount
             .setScale(2, RoundingMode.UNNECESSARY)
             .toPlainString();
+            
+        // Reconstruct the exact same string that the terminal hashed. 
+        // If a malicious driver changed the amount in transit, this payload will differ!
         String payload = riderId + "|" + normalizedAmount + "|" + timestamp;
 
         try {
-            //pick the algorithm
+            // Pick the algorithm (SHA256 is the industry standard for cryptographic hashes)
             Mac sha256 = Mac.getInstance("HmacSHA256");
 
-            // prepare the secret key
+            // Prepare the secret key. Both the Terminal and Server must know this exact password.
             SecretKeySpec keySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
 
-            //load the key into the machine
+            // Load the key into the machine
             sha256.init(keySpec);
     
             // run the hash function on the payload

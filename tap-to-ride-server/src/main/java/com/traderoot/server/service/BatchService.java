@@ -36,6 +36,9 @@ public class BatchService {
         // TODO [Phase 5] Implement the idempotency check here
         // 1. Check idempotency: if batchRepository.existsByBatchId(payload.getBatchId()) return success immediately
 
+        // IDEMPOTENCY GUARD: If the terminal loses internet after sending this batch, it will try to send it again.
+        // We check if we already processed this exact batch box. If yes, we just smile, nod, and return success
+        // so the terminal stops retrying, protecting the riders from getting double-charged!
         if (batchRepository.existsByBatchId(payload.getBatchId())) {
 
             BatchResponse response = new BatchResponse();
@@ -80,13 +83,15 @@ public class BatchService {
                
                 
                 if (!isSignatureValid) {
-                    // Handle invalid signature case (e.g., log, skip, or mark as invalid)
+                    // FRAUD DETECTED! We do not delete it (we want forensic evidence).
+                    // We flag it so it gets ignored during the nightly settlement process.
                     newTrip.setStatus("FLAGGED");
                     fraudCount++;
                     flaggedTripIds.add(trip.getTripId());
                     System.err.println("SECURITY ALERT: Tampered trip detected: " + trip.getTripId());
                     
                 } else {
+                    // Safe and verified. Ready to be billed tonight!
                     newTrip.setStatus("RECEIVED");
                     validCount++;
                 }

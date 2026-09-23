@@ -1,0 +1,25 @@
+# Maven build output
+**/target/
+
+# Java and IDE metadata
+*.class
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+.vscode/
+
+# Operating system files
+.DS_Store
+
+# Local runtime data
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
