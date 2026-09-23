@@ -1,8 +1,8 @@
 # Tap-to-Ride Transit System
 
-**Developed as part of my software engineering internship**, this project is a proof-of-concept payment and settlement system built for transit vehicles (like minibuses or taxis). 
+As part of my software engineering internship, I implemented a full-stack payment system that allows transit vehicles (like taxis and minibuses) to facilitate rider card payments on a day-to-day basis.
 
-This project was built to solve a specific engineering problem: processing digital payments in environments with highly unreliable internet connectivity (like driving through a tunnel or a rural area), while ensuring zero data loss and preventing local database tampering.
+The system is engineered to work seamlessly offline to cater for network issues, capturing and securely storing payments cryptographically to ensure zero data loss and prevent local database tampering.
 
 ## Architecture
 
